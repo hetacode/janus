@@ -1,5 +1,5 @@
 ####### Start from a golang base image ###############
-FROM golang:1.13.6-buster as builder
+FROM golang:1.18 as builder
 LABEL maintainer="Motiv Labs <dev@motivsolutions.com>"
 WORKDIR /app
 COPY ./ ./
