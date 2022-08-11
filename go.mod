@@ -24,6 +24,7 @@ require (
 	github.com/gofrs/uuid v3.3.0+incompatible
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/go-querystring v0.0.0-20170111101155-53e6ce116135 // indirect
+	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/hellofresh/health-go/v3 v3.2.0
 	github.com/hellofresh/logging-go v0.1.6
 	github.com/hellofresh/opencensus-go-extras v0.0.0-20191004131501-7bd94f603dcf

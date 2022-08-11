@@ -3,6 +3,8 @@ package requesttransformer
 import (
 	"net/http"
 	"net/url"
+
+	"github.com/hellofresh/janus/pkg/plugin"
 )
 
 type headerFn func(headerName string, headerValue string)
@@ -84,7 +86,7 @@ func transform(values map[string]string, fn headerFn) {
 	}
 
 	for name, value := range values {
-		fn(name, value)
+		fn(name, plugin.VariableParser(value))
 	}
 }
 

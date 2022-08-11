@@ -3,6 +3,7 @@ package requesttransformer
 import (
 	"net/http"
 	"net/http/httptest"
+	"regexp"
 	"testing"
 
 	"github.com/hellofresh/janus/pkg/test"
@@ -23,6 +24,22 @@ func TestAddHeader(t *testing.T) {
 	w := httptest.NewRecorder()
 	NewRequestTransformer(config)(http.HandlerFunc(test.Ping)).ServeHTTP(w, req)
 	assert.Equal(t, "Test", req.Header.Get("Test"))
+}
+
+func TestAddHeaderWithUUIDVariable(t *testing.T) {
+	config := Config{
+		Add: Options{
+			Headers: map[string]string{
+				"Test": "{{uuid}}",
+			},
+		},
+	}
+	req, err := http.NewRequest(http.MethodGet, "/", nil)
+	assert.NoError(t, err)
+
+	w := httptest.NewRecorder()
+	NewRequestTransformer(config)(http.HandlerFunc(test.Ping)).ServeHTTP(w, req)
+	assert.Regexp(t, regexp.MustCompile("[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}"), req.Header.Get("Test"))
 }
 
 func TestAddHeaderThatAlreadyExists(t *testing.T) {
